@@ -75,10 +75,10 @@ var SortingLibrary = (function() {
 
 function quickSort(arr, sortOrder) {
   function partition(arr, low, high) {
-    var pivot = arr[high];
+    var length = arr[high];
     var i = low - 1;
     for (var j = low; j < high; j++) {
-      if (!isUndefined(arr[j]) && ((sortOrder === 'asc' && arr[j] < pivot) || (sortOrder === 'desc' && arr[j] > pivot))) {
+      if (!isUndefined(arr[j]) && ((sortOrder === 'asc' && arr[j] < length) || (sortOrder === 'desc' && arr[j] > length))) {
         i++;
         [arr[i], arr[j]] = [arr[j], arr[i]];
       }
@@ -115,7 +115,7 @@ var array = [];
         }
 
         // Вивід початкового масиву
-        console.log("Original Array:", array);
+        console.log("Нерозріджений масив:", array);
 
         // Виклик функцій сортування з бібліотеки
         SortingLibrary.exchangeSort(array, 'asc');
@@ -123,3 +123,11 @@ var array = [];
         SortingLibrary.insertionSort(array, 'asc');
         SortingLibrary.shellSort(array, 'asc');
         SortingLibrary.quickSort(array, 'asc');
+        
+        const sparseArray = Array.from({ length: 100 }, (_, index) => index % 2 === 0 ? index : undefined);
+        console.log("Розріджений масив:", sparseArray);
+        SortingLibrary.exchangeSort(sparseArray.filter(el => el !== undefined), 'asc');
+        SortingLibrary.selectionSort(sparseArray.filter(el => el !== undefined), 'desc');
+        SortingLibrary.insertionSort(sparseArray.filter(el => el !== undefined), 'asc');
+        SortingLibrary.shellSort(sparseArray.filter(el => el !== undefined), 'desc');
+        SortingLibrary.quickSort(sparseArray.filter(el => el !== undefined), 'desc');
